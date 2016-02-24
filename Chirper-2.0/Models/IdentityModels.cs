@@ -1,4 +1,5 @@
-﻿using System.Data.Entity;
+﻿using System.Collections.Generic;
+using System.Data.Entity;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
@@ -9,6 +10,7 @@ namespace Chirper_2._0.Models
     // You can add profile data for the user by adding more properties to your User class, please visit http://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
     public class User : IdentityUser
     {
+        public virtual ICollection<Post> Posts { get; set; }
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<User> manager)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
@@ -29,5 +31,7 @@ namespace Chirper_2._0.Models
         {
             return new ApplicationDbContext();
         }
+
+        public System.Data.Entity.DbSet<Chirper_2._0.Models.Post> Posts { get; set; }
     }
 }
