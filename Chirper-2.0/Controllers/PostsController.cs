@@ -50,6 +50,8 @@ namespace Chirper_2._0.Controllers
         {
             if (ModelState.IsValid)
             {
+                post.Date = DateTime.Now;
+                post.LastEditDate = post.Date;
                 db.Posts.Add(post);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -82,6 +84,7 @@ namespace Chirper_2._0.Controllers
         {
             if (ModelState.IsValid)
             {
+                post.LastEditDate = DateTime.Now;
                 db.Entry(post).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

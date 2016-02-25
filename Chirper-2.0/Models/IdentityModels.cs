@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Chirper_2._0.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 
@@ -11,6 +13,8 @@ namespace Chirper_2._0.Models
     public class User : IdentityUser
     {
         public virtual ICollection<Post> Posts { get; set; }
+        public virtual Subscription Subscriptions { get; set; }
+        public DateTime RegistrationDate { get; set; }
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<User> manager)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
