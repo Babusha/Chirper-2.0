@@ -11,111 +11,111 @@ using Microsoft.AspNet.Identity;
 
 namespace Chirper_2._0.Controllers
 {
-    public class PostsController : Controller
+    public class SubscriptionsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: Posts
+        // GET: Subscriptions
         public ActionResult Index()
         {
-            return View(db.Posts.ToList());
+            return View(db.Subscriptions.ToList());
         }
 
-        // GET: Posts/Details/5
+        // GET: Subscriptions/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Post post = db.Posts.Find(id);
-            if (post == null)
+            Subscriptions subscriptions = db.Subscriptions.Find(id);
+            if (subscriptions == null)
             {
                 return HttpNotFound();
             }
-            return View(post);
+            return View(subscriptions);
         }
 
-        // GET: Posts/Create
+        // GET: Subscriptions/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Posts/Create
+        // POST: Subscriptions/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Text,Date")] Post post)
+        public ActionResult Create([Bind(Include = "Id")] Subscriptions subscriptions)
         {
+            if (subscriptions.Id.Equals(User.Identity.GetUserId()))
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
             if (ModelState.IsValid)
             {
-                post.Date = DateTime.Now;
-                post.LastEditDate = post.Date;
-                post.OriginalAuthor = db.Users.First(user => user.Id.ToString().Equals(User.Identity.GetUserId()));
-                db.Posts.Add(post);
+                db.Subscriptions.Add(subscriptions);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(post);
+            return View(subscriptions);
         }
 
-        // GET: Posts/Edit/5
+        // GET: Subscriptions/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Post post = db.Posts.Find(id);
-            if (post == null)
+            Subscriptions subscriptions = db.Subscriptions.Find(id);
+            if (subscriptions == null)
             {
                 return HttpNotFound();
             }
-            return View(post);
+            return View(subscriptions);
         }
 
-        // POST: Posts/Edit/5
+        // POST: Subscriptions/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Text,Date")] Post post)
+        public ActionResult Edit([Bind(Include = "Id")] Subscriptions subscriptions)
         {
             if (ModelState.IsValid)
             {
-                post.LastEditDate = DateTime.Now;
-                db.Entry(post).State = EntityState.Modified;
+                db.Entry(subscriptions).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(post);
+            return View(subscriptions);
         }
 
-        // GET: Posts/Delete/5
+        // GET: Subscriptions/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Post post = db.Posts.Find(id);
-            if (post == null)
+            Subscriptions subscriptions = db.Subscriptions.Find(id);
+            if (subscriptions == null)
             {
                 return HttpNotFound();
             }
-            return View(post);
+            return View(subscriptions);
         }
 
-        // POST: Posts/Delete/5
+        // POST: Subscriptions/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Post post = db.Posts.Find(id);
-            db.Posts.Remove(post);
+            Subscriptions subscriptions = db.Subscriptions.Find(id);
+            db.Subscriptions.Remove(subscriptions);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

@@ -7,6 +7,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Chirper_2._0.Models;
+using Microsoft.Ajax.Utilities;
 
 namespace Chirper_2._0.Controllers
 {
@@ -52,7 +53,7 @@ namespace Chirper_2._0.Controllers
 
         //
         // GET: /Manage/Index
-        public async Task<ActionResult> Index(ManageMessageId? message)
+        public async Task<ActionResult> Index(string id, ManageMessageId? message)
         {
             ViewBag.StatusMessage =
                 message == ManageMessageId.ChangePasswordSuccess ? "Your password has been changed."
@@ -63,7 +64,7 @@ namespace Chirper_2._0.Controllers
                 : message == ManageMessageId.RemovePhoneSuccess ? "Your phone number was removed."
                 : "";
 
-            var userId = User.Identity.GetUserId();
+            var userId = string.IsNullOrEmpty(id) ? User.Identity.GetUserId() : id;
             var model = new IndexViewModel
             {
                 HasPassword = HasPassword(),
@@ -71,8 +72,9 @@ namespace Chirper_2._0.Controllers
                 TwoFactor = await UserManager.GetTwoFactorEnabledAsync(userId),
                 Logins = await UserManager.GetLoginsAsync(userId),
                 BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId),
-                RegistrationDate = UserManager.FindById(User.Identity.GetUserId()).RegistrationDate
-        };
+                UserProfileInfo = UserManager.Users.FirstOrDefault(user => user.Id.Equals(userId)),
+                ThatsMe = User.Identity.GetUserId().Equals(userId)
+            };
             return View(model);
         }
 

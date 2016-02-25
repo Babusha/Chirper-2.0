@@ -13,7 +13,8 @@ namespace Chirper_2._0.Models
         public string PhoneNumber { get; set; }
         public bool TwoFactor { get; set; }
         public bool BrowserRemembered { get; set; }
-        public DateTime RegistrationDate { get; set; }
+        public bool ThatsMe { get; set; }
+        public User UserProfileInfo { get; set; }
     }
 
     public class ManageLoginsViewModel

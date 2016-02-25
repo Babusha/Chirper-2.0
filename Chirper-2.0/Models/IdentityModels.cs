@@ -13,7 +13,7 @@ namespace Chirper_2._0.Models
     public class User : IdentityUser
     {
         public virtual ICollection<Post> Posts { get; set; }
-        public virtual Subscription Subscriptions { get; set; }
+        public virtual Subscriptions Subscriptions { get; set; }
         public DateTime RegistrationDate { get; set; }
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<User> manager)
         {
@@ -37,5 +37,7 @@ namespace Chirper_2._0.Models
         }
 
         public System.Data.Entity.DbSet<Chirper_2._0.Models.Post> Posts { get; set; }
+
+        public System.Data.Entity.DbSet<Chirper_2._0.Models.Subscriptions> Subscriptions { get; set; }
     }
 }

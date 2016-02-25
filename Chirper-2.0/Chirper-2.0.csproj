@@ -200,6 +200,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PostsController.cs" />
+    <Compile Include="Controllers\SubscriptionsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -211,12 +212,16 @@
     <Compile Include="Migrations\201602251648010_Initial.Designer.cs">
       <DependentUpon>201602251648010_Initial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201602251727515_Subscriptions.cs" />
+    <Compile Include="Migrations\201602251727515_Subscriptions.Designer.cs">
+      <DependentUpon>201602251727515_Subscriptions.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Post.cs" />
-    <Compile Include="Models\Subscription.cs" />
+    <Compile Include="Models\Subscriptions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -285,6 +290,11 @@
     <Content Include="Views\Posts\Details.cshtml" />
     <Content Include="Views\Posts\Edit.cshtml" />
     <Content Include="Views\Posts\Index.cshtml" />
+    <Content Include="Views\Subscriptions\Create.cshtml" />
+    <Content Include="Views\Subscriptions\Delete.cshtml" />
+    <Content Include="Views\Subscriptions\Details.cshtml" />
+    <Content Include="Views\Subscriptions\Edit.cshtml" />
+    <Content Include="Views\Subscriptions\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -303,6 +313,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201602251648010_Initial.resx">
       <DependentUpon>201602251648010_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602251727515_Subscriptions.resx">
+      <DependentUpon>201602251727515_Subscriptions.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
